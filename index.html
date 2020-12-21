@@ -1,0 +1,379 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PR&Aacute;CTICA 05: "SERIES DE FOURIER EN TIEMPO CONTINUO"</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-21"><meta name="DC.source" content="PRACTICA5_para_subir.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><b>PR&Aacute;CTICA 05: "SERIES DE FOURIER EN TIEMPO CONTINUO"</b></h1><!--introduction--><p><b>INTEGRANTES:</b></p><div><ul><li>Basilio P&eacute;rez Neftali</li><li>Orozco Segovia Mikhael Imanol</li><li>Servin Zamora Alejandro</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">OBJETIVOS:</a></li><li><a href="#2">DESARROLLO:</a></li><li><a href="#3"><b>EJEMPLO 6.2</b></a></li><li><a href="#6"><b>EJEMPLO 6.4</b></a></li><li><a href="#8"><b>EJEMPLO PR08-1</b></a></li><li><a href="#10"><b>EJEMPLO PR08-2</b></a></li><li><a href="#13"><b>EJEMPLO PR10</b></a></li></ul></div><h2 id="1">OBJETIVOS:</h2><div><ul><li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li></ul></div><h2 id="2">DESARROLLO:</h2><h2 id="3"><b>EJEMPLO 6.2</b></h2><p>Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo 6.2 del libro del Lathi</p><p><b>Exponencial compleja</b></p><p><img src="PRACTICA5_para_subir_eq03104867393333989328.png" alt="$S_{f}(t)=\frac{4}{\pi^2}\sum_{-\infty }^{\infty }e^{-\pi nj(t-1)}$" style="width:161px;height:19px;"></p><pre class="codeinput">d0=0;
+dn=@(n) ((-8*sin((n*pi)/2)/(n^2*pi^2))/2)*j;
+t0=-1/2;
+tf=3/2;
+f=@(t) (2*t).*(t&gt;=-1/2 &amp; t&lt;1/2) + (2*(1-t).*(t&gt;=1/2 &amp; t&lt;=3/2)) ;
+armo=15;
+a=-4;
+b=4;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_01.png" alt=""> <p><b>Trigonometrica compacta</b></p><p><img src="PRACTICA5_para_subir_eq14945811494867221903.png" alt="$$S_{f}(t)=\frac{8}{\pi^2}\left [ cos(\pi t-90^{\circ})+\frac{1}{9}cos(3\pi t+90^{\circ})+\frac{1}{25}cos(5\pi t-90^{\circ})+\frac{1}{79}cos(7\pi t+90^{\circ}) \right ]$$" style="width:545px;height:36px;"></p><pre class="codeinput">c0=0;
+cn=@(n) 8*sin((n*pi)/2)/(n^2*pi^2);
+f=@(t) (2*t).*(t&gt;=-1/2 &amp; t&lt;1/2) + (2*(1-t).*(t&gt;=1/2 &amp; t&lt;=3/2)) ;
+a=-4;
+b=4;
+t0=-1/2;
+tf=3/2;
+teta=-pi/2;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b);
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_02.png" alt=""> <h2 id="6"><b>EJEMPLO 6.4</b></h2><p>Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo 6.4 del libro del Lathi</p><p><b>Exponencial compleja</b></p><p><img vspace="5" hspace="5" src="analitico 6.4-complejos.png" alt=""> </p><pre class="codeinput">clear <span class="string">all</span>
+dn=@(n)(5734161139222659*sinh((pi*j*n)/2))/(18014398509481984*j*n);
+d0=1/2;
+armo=15;
+f=@(t) 0.*(t&gt;=-pi &amp; t&lt;=-pi/2) + 1.*(t&gt;-pi/2 &amp; t&lt;=pi/2) + 0.*(t&gt;pi/2 &amp; t&lt;=pi);
+t0=-pi;
+tf=pi;
+a=-3*pi;
+b=7*pi;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_03.png" alt=""> <p><b>Trigonometrica compacta</b></p><p><img src="PRACTICA5_para_subir_eq07155814327794460916.png" alt="$$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{2*\sin{(\frac{n \pi}{2})}*\cos{(nt)}}{\pi n}$$" style="width:207px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+c0=1/2;
+cn=@(n) (2/(pi.*n)).*sin(n*pi/2);
+f=@(t) 0.*(t&gt;=-pi &amp; t&lt;-pi/2) + 1.*(t&gt;=-pi/2 &amp; t&lt;=pi/2) + 0.*(t&gt;pi/2 &amp; t&lt;=pi);
+a=-3*pi;
+b=7*pi;
+teta=0;
+armo=15;
+t0=-pi;
+tf=pi;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_04.png" alt=""> <h2 id="8"><b>EJEMPLO PR08-1</b></h2><p>Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo PR 08-1</p><p><img src="PRACTICA5_para_subir_eq07695899248485187183.png" alt="$$f(t)=t \; -1<=t<=1$" style="width:122px;height:12px;"></p><p><b>Exponencial compleja</b></p><p><img vspace="5" hspace="5" src="PR08_1expo.png" alt=""> </p><pre class="codeinput">clear <span class="string">all</span>
+d0=0;
+dn=@(n)-(exp(pi*j*n)*(pi*j*n - 1))/(2*j^2*n^2*pi^2) - (exp(-pi*j*n)*(pi*j*n + 1))/(2*j^2*n^2*pi^2);
+armo=15;
+f=@(t)t;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_05.png" alt=""> <p><b>Trigonometrica compacta</b></p><p><img src="PRACTICA5_para_subir_eq00870639292916194710.png" alt="$$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{2(-\pi n\cos{(\pi n)}*\sin{(\pi n}{2})*\cos{(\pi n t -\frac{\pi}{2})})}{\pi^2 n^2}$$" style="width:347px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+f=@(t) t;
+c0=0;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+teta=-pi/2;
+armo=15;
+cn=@(n) 2.*((-pi.*n.*cos(pi.*n)+sin(pi.*n))/(pi.^2.*n.^2));
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_06.png" alt=""> <h2 id="10"><b>EJEMPLO PR08-2</b></h2><p>Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo PR 08-2</p><p><img src="PRACTICA5_para_subir_eq11447960655544400895.png" alt="$$f(t)=t^2$$" style="width:44px;height:14px;"></p><p><b>Exponencial compleja</b></p><p><img src="PRACTICA5_para_subir_eq06676184624884645805.png" alt="$$&#xA;S_{f}(t)=\frac{4}{3}+\frac{4}{\pi^3}\sum_{n=-\infty}^{\infty}\frac{2\pi n&#xA;\cos{(\pi n)}*e^{n\frac{n\pi}{2}}}{n^3}$$" style="width:256px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+d0=4/3;
+dn=@(n)(4/(pi^3*n^3)).*(2*pi*n*cos(pi*n));
+armo=15;
+f=@(t)t.^2;
+t0=-2;
+tf=2;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_07.png" alt=""> <p><b>Trigonometrica compacta</b></p><p><img src="PRACTICA5_para_subir_eq16703595221393005795.png" alt="$$ S_{f}(t)=\frac{4}{3}+\frac{4}{\pi^3}\sum_{n=1}^{\infty}\frac{2\pi n&#xA;\cos{(\pi n)}*\cos{(\frac{n*\pi*t}{2}})}{n^3}$$" style="width:282px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+f=@(t) t.^2;
+c0=4/3;
+cn=@(n) (16/(pi^3*n^3))*(pi*n*cos(pi*n));
+t0=-2;
+tf=2;
+a=-5;
+b=5;
+teta=0;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_08.png" alt=""> <h2 id="13"><b>EJEMPLO PR10</b></h2><p>Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo PR 10-1</p><p><img src="PRACTICA5_para_subir_eq13179983198698932233.png" alt="$$ S_{f}(t)=\sum_{n=-\infty}^{\infty}\frac{4*(1-e^{(-2)}*\cos{(\pi&#xA;n)}*e^{(j*n*\pi*t)})}{4+n^2*\pi}$$" style="width:306px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+f=@(t) 2*exp(-2.*abs(t));
+d0=0;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+armo=15;
+dn=@(n)(4*(1-exp(-2)*cos(pi*n))/((4+n^2*pi)));
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_09.png" alt=""> <p><b>Trigonometrica compacta</b></p><p><img src="PRACTICA5_para_subir_eq00300714319477185467.png" alt="$$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{8(1-e^{-2}cos(n\pi))}{4+n^2\pi^2}cos(n\pi&#xA;t)$$" style="width:246px;height:41px;"></p><pre class="codeinput">clear <span class="string">all</span>
+f=@(t) 2*exp(-2.*abs(t));
+c0=0;
+cn=@(n) (8*(1-exp(-2)*cos(pi*n))/((4+n^2*pi)));
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+teta=0;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="PRACTICA5_para_subir_10.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% *PRÁCTICA 05: "SERIES DE FOURIER EN TIEMPO CONTINUO"*
+%
+% *INTEGRANTES:*
+%
+% * Basilio Pérez Neftali
+% * Orozco Segovia Mikhael Imanol
+% * Servin Zamora Alejandro
+%
+%% OBJETIVOS:
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo
+% * Manipulación de instrucciones en MATLAB
+%% DESARROLLO:
+%
+%% *EJEMPLO 6.2*
+% Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo
+% 6.2 del libro del Lathi
+%
+% *Exponencial compleja*
+%%
+% $S_{f}(t)=\frac{4}{\pi^2}\sum_{-\infty }^{\infty }e^{-\pi nj(t-1)}$
+%
+d0=0;
+dn=@(n) ((-8*sin((n*pi)/2)/(n^2*pi^2))/2)*j;
+t0=-1/2;
+tf=3/2;
+f=@(t) (2*t).*(t>=-1/2 & t<1/2) + (2*(1-t).*(t>=1/2 & t<=3/2)) ;
+armo=15;
+a=-4;
+b=4;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+%%
+% *Trigonometrica compacta*
+%
+% $$S_{f}(t)=\frac{8}{\pi^2}\left [ cos(\pi t-90^{\circ})+\frac{1}{9}cos(3\pi t+90^{\circ})+\frac{1}{25}cos(5\pi t-90^{\circ})+\frac{1}{79}cos(7\pi t+90^{\circ}) \right ]$$
+c0=0;
+cn=@(n) 8*sin((n*pi)/2)/(n^2*pi^2);
+f=@(t) (2*t).*(t>=-1/2 & t<1/2) + (2*(1-t).*(t>=1/2 & t<=3/2)) ;
+a=-4;
+b=4;
+t0=-1/2;
+tf=3/2;
+teta=-pi/2;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b);
+%% *EJEMPLO 6.4*
+% Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo
+% 6.4 del libro del Lathi
+% 
+% *Exponencial compleja*
+%
+% <<analitico 6.4-complejos.png>>
+% 
+% 
+%
+clear all 
+dn=@(n)(5734161139222659*sinh((pi*j*n)/2))/(18014398509481984*j*n);
+d0=1/2;
+armo=15;
+f=@(t) 0.*(t>=-pi & t<=-pi/2) + 1.*(t>-pi/2 & t<=pi/2) + 0.*(t>pi/2 & t<=pi);
+t0=-pi;
+tf=pi;
+a=-3*pi;
+b=7*pi;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+%%
+% *Trigonometrica compacta*
+%
+% $$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{2*\sin{(\frac{n \pi}{2})}*\cos{(nt)}}{\pi n}$$
+%
+%
+%
+clear all
+c0=1/2;
+cn=@(n) (2/(pi.*n)).*sin(n*pi/2);
+f=@(t) 0.*(t>=-pi & t<-pi/2) + 1.*(t>=-pi/2 & t<=pi/2) + 0.*(t>pi/2 & t<=pi);
+a=-3*pi;
+b=7*pi;
+teta=0;
+armo=15;
+t0=-pi;
+tf=pi;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+%% *EJEMPLO PR08-1*
+% Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo
+% PR 08-1
+%
+% $$f(t)=t \; -1<=t<=1$
+% 
+% *Exponencial compleja*
+%
+%
+% <<PR08_1expo.png>>
+% 
+%
+% 
+clear all
+d0=0;
+dn=@(n)-(exp(pi*j*n)*(pi*j*n - 1))/(2*j^2*n^2*pi^2) - (exp(-pi*j*n)*(pi*j*n + 1))/(2*j^2*n^2*pi^2);
+armo=15;
+f=@(t)t;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+%%
+% *Trigonometrica compacta*
+%
+% 
+% $$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{2(-\pi n\cos{(\pi n)}*\sin{(\pi n}{2})*\cos{(\pi n t -\frac{\pi}{2})})}{\pi^2 n^2}$$
+%
+%
+clear all
+f=@(t) t;
+c0=0;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+teta=-pi/2;
+armo=15;
+cn=@(n) 2.*((-pi.*n.*cos(pi.*n)+sin(pi.*n))/(pi.^2.*n.^2));
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+%% *EJEMPLO PR08-2*
+% Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo
+% PR 08-2
+%
+%%
+% 
+% $$f(t)=t^2$$
+% 
+% *Exponencial compleja* 
+%
+% $$
+% S_{f}(t)=\frac{4}{3}+\frac{4}{\pi^3}\sum_{n=-\infty}^{\infty}\frac{2\pi n
+% \cos{(\pi n)}*e^{n\frac{n\pi}{2}}}{n^3}$$
+%
+clear all
+d0=4/3;
+dn=@(n)(4/(pi^3*n^3)).*(2*pi*n*cos(pi*n));
+armo=15;
+f=@(t)t.^2;
+t0=-2;
+tf=2;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b);
+%%
+% *Trigonometrica compacta*
+%
+%
+% $$ S_{f}(t)=\frac{4}{3}+\frac{4}{\pi^3}\sum_{n=1}^{\infty}\frac{2\pi n
+% \cos{(\pi n)}*\cos{(\frac{n*\pi*t}{2}})}{n^3}$$
+% 
+%
+clear all
+f=@(t) t.^2;
+c0=4/3;
+cn=@(n) (16/(pi^3*n^3))*(pi*n*cos(pi*n));
+t0=-2;
+tf=2;
+a=-5;
+b=5;
+teta=0;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+%% *EJEMPLO PR10*
+% Realizar la serie de Fourier Trigonometrica compacta y exponencial compleja para el ejemplo
+% PR 10-1
+%
+%
+% $$ S_{f}(t)=\sum_{n=-\infty}^{\infty}\frac{4*(1-e^{(-2)}*\cos{(\pi
+% n)}*e^{(j*n*\pi*t)})}{4+n^2*\pi}$$
+%
+%
+clear all
+f=@(t) 2*exp(-2.*abs(t));
+d0=0;
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+armo=15;
+dn=@(n)(4*(1-exp(-2)*cos(pi*n))/((4+n^2*pi)));
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+%
+% *Trigonometrica compacta*
+%
+% $$ S_{f}(t)=\sum_{n=1}^{\infty}\frac{8(1-e^{-2}cos(n\pi))}{4+n^2\pi^2}cos(n\pi
+% t)$$
+clear all
+f=@(t) 2*exp(-2.*abs(t));
+c0=0;
+cn=@(n) (8*(1-exp(-2)*cos(pi*n))/((4+n^2*pi)));
+t0=-1;
+tf=1;
+a=-5;
+b=5;
+teta=0;
+armo=15;
+sft(t0,tf,cn,c0,teta,f,armo,a,b)
+
+##### SOURCE END #####
+--></body></html>
